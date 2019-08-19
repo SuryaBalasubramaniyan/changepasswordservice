@@ -1,7 +1,7 @@
 import React, { Component } from "react";
    // import Form from 'react-bootstrap/Form'
     //import Button from 'react-bootstrap/Button'
-//import { Tooltip } from 'reactstrap';
+
 import Axios from 'axios';
 import '../App.css';
     //import {Container,Row,Col} from "react-bootstrap";
@@ -11,6 +11,7 @@ export default class ChangePassword extends Component {
   constructor() {
     super();
     this.state={
+      userID : "",
       hpassword: "",
       oldPassword: "",
       confirmPassword: "",
@@ -31,12 +32,13 @@ export default class ChangePassword extends Component {
   onSubmit(e) {
     e.preventDefault();
     const userObject={
+      userID : "1",
      oldpwd:this.state.fields.oldPassword,
-     newpwd: this.state.fields.hpassword
+     hashedpwd: this.state.fields.hpassword
     }
     if (this.validateForm())  {
   //console.log("Hi from here")
- //console.log(` ${oldPassword} `)
+ console.log(` ${userObject.oldpwd} ${userObject.hashedpwd}`)
    
   /*var bodyFormData = new FormData();
   bodyFormData.set('oldpwd',this.state.fields.oldPassword );
@@ -95,7 +97,7 @@ Axios.post('http://10.150.176.115:8093/api/change',userObject)
     if (typeof fields["oldPassword"] !== "undefined") {
       if (!fields["oldPassword"].match(/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/)) {
         formIsValid = false;
-        errors["oldPassword"] = "*Please enter in corect format.";
+        errors["oldPassword"] = <font color="red">Please enter in corect format</font>;
       }
     }
    
@@ -103,7 +105,7 @@ Axios.post('http://10.150.176.115:8093/api/change',userObject)
     if (typeof fields["hpassword"] !== "undefined") {
       if (!fields["hpassword"].match(/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/)) {
         formIsValid = false;
-        errors["hpassword"] = "*Please enter secure and strong password.";
+        errors["hpassword"] = <font color="red">Please enter secure and strong password</font>;
       }
     }
 
@@ -114,7 +116,7 @@ Axios.post('http://10.150.176.115:8093/api/change',userObject)
     if(typeof fields["confirmPassword"]!== "undefined"){
       if(fields["hpassword"]!== fields["confirmPassword"]){
       formIsValid=false;
-      errors["confirmPassword"]="*Password doesn't match.";
+      errors["confirmPassword"]=<font color="red">Password doesn't match</font>;
       }
     }
   
@@ -165,7 +167,6 @@ Axios.post('http://10.150.176.115:8093/api/change',userObject)
             <br/>
           <button  type="submit" onClick= {this.onSubmit} >Change Password</button>  
           <br/>
-          
           <button  onClick={this.clear} >Reset</button>
         </div>  
       </form>
